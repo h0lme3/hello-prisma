@@ -12,10 +12,10 @@ datasource db {
 
 model Post {
   id        Int @id @default(autoincrement())
-  title     String
+  title     String @db.VarChar(255)
   content   String?
   published Boolean @default(false)
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
   author    User  @relation(fields: [authorId], references: [id])
   authorId  Int
@@ -30,8 +30,8 @@ model Profile {
 
 model User {
   id        Int @id @default(autoincrement())
-  email     String  @unique
-  name      String?
+  name      String? @db.VarChar(255)
+  email     String  @unique @db.VarChar(255)
   posts     Post[]
   profile   Profile?
 }
